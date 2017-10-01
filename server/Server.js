@@ -2,8 +2,7 @@
 
 const Koa = require('koa');
 const Router = require('./Router');
-
-const logger = require('koa-logger');
+const Database = require('./Database');
 
 class Server {
 	constructor() {
@@ -16,8 +15,14 @@ class Server {
 		return this;
 	}
 
+	attachDatabase(connection) {
+		this.database = new Database();
+		return this;
+	}
+
 	enableLogs() {
-		this.app.use(logger());
+		this.router.enableLogs();
+		this.database.enableLogs();
 		return this;
 	}
 
