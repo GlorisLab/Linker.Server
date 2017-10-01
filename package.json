@@ -1,0 +1,30 @@
+{
+  "name": "linker.server",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node App.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GlorisLab/Linker.Server.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GlorisLab/Linker.Server/issues"
+  },
+  "homepage": "https://github.com/GlorisLab/Linker.Server#readme",
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "koa": "^2.3.0",
+    "koa-bodyparser": "^4.2.0",
+    "koa-logger": "^3.1.0",
+    "koa-passport": "^4.0.0",
+    "koa-router": "^7.2.1",
+    "mongoose": "^4.11.14",
+    "passport-jwt": "^3.0.0",
+    "passport-local": "^1.0.0"
+  }
+}
