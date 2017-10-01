@@ -10,13 +10,15 @@ class Server {
 	}
 
 	attachRouter(routes) {
-		this.router = new Router(this.app, routes);
+		this.router = new Router(this.app, routes,
+			this.database.getManagers());
 		this.router.route();
 		return this;
 	}
 
 	attachDatabase(connection) {
-		this.database = new Database();
+		this.database = new Database(connection);
+		this.database.connect();
 		return this;
 	}
 
