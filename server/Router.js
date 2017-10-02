@@ -1,7 +1,8 @@
 'use strict'
 
-const jwt = require('jsonwebtoken');
 const KoaRouter = require('koa-router');
+
+const UsersController = require('../controllers/UsersController');
 
 const logger = require('koa-logger');
 const passport = require('koa-passport');
@@ -13,6 +14,7 @@ class Router {
 	constructor(app, routes, managers) {
 		this.app = app;
 		this.managers = managers;
+		this.routes = routes;
 		this.router = new KoaRouter();
 	}
 
@@ -21,9 +23,11 @@ class Router {
 	}
 
 	route() {
+		const usersController = new UsersController(passport, this.managers.users);
+
 		this.registerMiddlewares();
 		this.registerStrategies();
-		this.registerUserRoutes();
+		this.registerUserRoutes(this.routes.user, usersController);
 	}
 
 	registerMiddlewares() {
@@ -37,45 +41,10 @@ class Router {
 		passport.use(jwtStrategy(this.managers.users));
 	}
 
-	registerUserRoutes() {
-		this.router.post('/user', async(ctx, next) => {
-			try {
-				ctx.body = await this.managers.users.userModel.create(ctx.request.body);
-			}
-			catch (err) {
-				ctx.status = 400;
-				ctx.body = err;
-			}
-		});
-
-		this.router.post('/login', async(ctx, next) => {
-			await passport.authenticate('local', function (err, user) {
-				if (!user) {
-					ctx.body = "Login failed";
-				} else {
-					const payload = {
-						id: user.id,
-						displayName: user.displayName,
-						email: user.email
-					};
-
-					const token = jwt.sign(payload, 'GoodBoyCowboy');
-
-					ctx.body = {user: user.displayName, token: 'bearer ' + token};
-				}
-			})(ctx, next);
-		});
-
-		this.router.get('/custom', async(ctx, next) => {
-			await passport.authenticate('jwt', function (err, user) {
-				if (user) {
-					ctx.body = "hello " + user.displayName;
-				} else {
-					ctx.body = "No such user";
-					console.log("err", err);
-				}
-			})(ctx, next);
-		});
+	registerUserRoutes(paths, controller) {
+		this.router.post(paths.reg, controller.register);
+		this.router.post(paths.auth, controller.auth);
+		this.router.get(paths.validate, controller.validate);
 	}
 }
 

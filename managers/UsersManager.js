@@ -5,6 +5,10 @@ class UsersManager {
 		this.userModel = userModel;
 	}
 
+	create(displayName, email, password) {
+		return this.userModel.create({ displayName, email, password });
+	}
+
 	findById(id) {
 		return this.userModel.findOne({ _id: id }).exec();
 	}
