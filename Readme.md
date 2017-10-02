@@ -1,6 +1,6 @@
 # Api
 
-###register
+### register
 POST _/user/reg_
  
 ```
@@ -14,7 +14,7 @@ Response: the user
 ```
  
  
-##authorization 
+## authorization 
 POST '/user/auth'
 
 ```
@@ -28,7 +28,7 @@ Response: {
     }
 ```
 
-###validate:
+### validate
 GET '/user/validate'
 
 ```
