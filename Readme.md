@@ -14,8 +14,8 @@ Response: the user
 ```
  
  
-## authorization 
-POST '/user/auth'
+### authorization 
+POST _/user/auth_
 
 ```
 Request: {
@@ -29,7 +29,7 @@ Response: {
 ```
 
 ### validate
-GET '/user/validate'
+GET _/user/validate_
 
 ```
 HEADER
