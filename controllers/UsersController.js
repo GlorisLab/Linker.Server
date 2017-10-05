@@ -1,9 +1,12 @@
 'use strict'
 
 const jwt = require('jsonwebtoken');
+const BaseController = require('../controllers/BaseController');
 
-class UsersController {
+class UsersController extends BaseController {
 	constructor(passport, usersManager) {
+		super();
+
 		this.passport = passport;
 		this.usersManager = usersManager;
 
@@ -37,18 +40,24 @@ class UsersController {
 				const token = jwt.sign(payload, 'GoodBoyCowboy');
 				ctx.body = {user: user.displayName, token: 'bearer ' + token};
 			}
-		})(ctx, next)
+		})(ctx, next);
 	}
 
 	async validate(ctx, next) {
 		await this.passport.authenticate('jwt', (err, user) => {
-			if (user) {
-				ctx.body = "hello " + user.displayName;
-			} else {
+			if (!user) {
 				ctx.body = "No such user";
 				console.log("err", err);
+				return;
 			}
+
+			ctx.user = user;
+			next();
 		})(ctx, next);
+	}
+
+	async printer(ctx, next) {
+		ctx.body = ctx.user;
 	}
 }
 

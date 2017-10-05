@@ -44,7 +44,7 @@ class Router {
 	registerUserRoutes(paths, controller) {
 		this.router.post(paths.reg, controller.register);
 		this.router.post(paths.auth, controller.auth);
-		this.router.get(paths.validate, controller.validate);
+		this.router.get(paths.validate, controller.validate, controller.printer);
 	}
 }
 
