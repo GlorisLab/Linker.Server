@@ -2,6 +2,7 @@
 
 class BaseController {
 	success(ctx, model) {
+		ctx.status = 200;
 		ctx.body = model;
 	}
 

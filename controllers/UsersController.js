@@ -20,7 +20,7 @@ class UsersController extends BaseController {
 	async register(ctx, next) {
 			try {
 				const { displayName, email, password } = ctx.request.body;
-				ctx.body = await this.usersManager.create(displayName, email, password);
+				this.success(ctx, await this.usersManager.create(displayName, email, password));
 			}
 			catch (err) {
 				this.error(ctx, 500, err);
@@ -30,7 +30,7 @@ class UsersController extends BaseController {
 	async auth(ctx, next) {
 		await this.passport.authenticate('local', (err, user) => {
 			if (!user) {
-				this.error(ctx, 404, 'UserNotFound');
+				this.error(ctx, 404, 'User Not Found');
 				return;
 			}
 
@@ -53,7 +53,7 @@ class UsersController extends BaseController {
 			}
 
 			ctx.user = user;
-			next();
+			return next();
 		})(ctx, next);
 	}
 
