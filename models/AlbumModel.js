@@ -21,11 +21,6 @@ module.exports = (mongoose) => {
 		},
 		cover: {
 			type: String
-		},
-		creationDate: {
-			type: Date,
-			required: true,
-			default: Date.now
 		}
 	}, {
 		timestamps: true

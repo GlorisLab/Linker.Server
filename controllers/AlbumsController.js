@@ -10,6 +10,9 @@ class AlbumsController extends BaseController {
 
 		this.create = this.create.bind(this);
 		this.findById = this.findById.bind(this);
+		this.findByUser = this.findByUser.bind(this);
+		this.changeType = this.changeType.bind(this);
+		this.edit = this.edit.bind(this);
 	}
 
 	async create(ctx, next) {
@@ -22,6 +25,29 @@ class AlbumsController extends BaseController {
 	}
 
 	async findById(ctx, next) {
+		try {
+			const {id} = ctx.params;
+			this.success(ctx, await this.albumManager.findById(id));
+		} catch (error) {
+			this.error(ctx, 404, 'Not found');
+		}
+	}
+
+	async findByUser(ctx, next) {
+		try {
+			const {userId} = ctx.params;
+			const {limit, offset} = ctx.query;
+			this.success(ctx, await this.albumManager.findByUser(userId, offset, limit));
+		} catch (error) {
+			this.error(ctx, 404, 'Not found');
+		}
+	}
+
+	async changeType(ctx, next) {
+
+	}
+
+	async edit(ctx, next) {
 
 	}
 }

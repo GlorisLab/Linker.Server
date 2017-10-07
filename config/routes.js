@@ -8,9 +8,9 @@ module.exports = {
 	},
 	album: {
 		create: '/album/create',
-		findById: '/album/:id',
-		findByUser: '/album/:userId',
-		changeType: 'album/:id/:type',
+		findById: '/album/findById/:id',
+		findByUser: '/album/findByUser/:userId',
+		changeType: 'album/changeType/:id/:type',
 		edit: '/album/edit/:id'
 	}
 };

@@ -55,6 +55,7 @@ class Router {
 	registerAlbumRoutes(paths, controller) {
 		this.router.post(paths.create, this.authValidator, controller.create);
 		this.router.get(paths.findById, this.authValidator, controller.findById);
+		this.router.get(paths.findByUser, this.authValidator, controller.findByUser);
 	}
 }
 
