@@ -1,9 +1,14 @@
 'use strict'
 
 const jwt = require('jsonwebtoken');
+const BaseController = require('../controllers/BaseController');
 
-class UsersController {
+const cryptoConfig = require('../config/crypto');
+
+class UsersController extends BaseController {
 	constructor(passport, usersManager) {
+		super();
+
 		this.passport = passport;
 		this.usersManager = usersManager;
 
@@ -15,40 +20,45 @@ class UsersController {
 	async register(ctx, next) {
 			try {
 				const { displayName, email, password } = ctx.request.body;
-				ctx.body = await this.usersManager.create(displayName, email, password);
+				this.success(ctx, await this.usersManager.create(displayName, email, password));
 			}
 			catch (err) {
-				ctx.status = 400;
-				ctx.body = err;
+				this.error(ctx, 500, err);
 			}
 	}
 
 	async auth(ctx, next) {
 		await this.passport.authenticate('local', (err, user) => {
 			if (!user) {
-				ctx.body = "Login failed";
-			} else {
-				const payload = {
-					id: user.id,
-					displayName: user.displayName,
-					email: user.email
-				};
-
-				const token = jwt.sign(payload, 'GoodBoyCowboy');
-				ctx.body = {user: user.displayName, token: 'bearer ' + token};
+				this.error(ctx, 404, 'User Not Found');
+				return;
 			}
-		})(ctx, next)
+
+			const payload = {
+				id: user.id,
+				displayName: user.displayName,
+				email: user.email
+			};
+
+			const token = cryptoConfig.formToken(jwt.sign(payload, cryptoConfig.salt));
+			ctx.body = {user: user.displayName, token };
+		})(ctx, next);
 	}
 
 	async validate(ctx, next) {
 		await this.passport.authenticate('jwt', (err, user) => {
-			if (user) {
-				ctx.body = "hello " + user.displayName;
-			} else {
-				ctx.body = "No such user";
-				console.log("err", err);
+			if (!user) {
+				this.error(ctx, 404, 'User not found');
+				return;
 			}
+
+			ctx.user = user;
+			return next();
 		})(ctx, next);
+	}
+
+	async printer(ctx, next) {
+		ctx.body = ctx.user;
 	}
 }
 

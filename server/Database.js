@@ -2,6 +2,8 @@
 
 const mongoose = require('mongoose');
 
+const AlbumModel = require('../models/AlbumModel');
+const AlbumManager = require('../managers/AlbumsManager');
 const UserModel = require('../models/UserModel');
 const UsersManager = require('../managers/UsersManager');
 
@@ -19,13 +21,17 @@ class Database {
 	connect() {
 		mongoose.connect(this.connection.uri, { useMongoClient: true });
 
-		this.userModel = UserModel(mongoose);
-		this.usersManager = new UsersManager(this.userModel);
+		this.albumsModel = AlbumModel(mongoose);
+		this.albumsManager = new AlbumManager(this.albumsModel);
+
+		this.usersModel = UserModel(mongoose);
+		this.usersManager = new UsersManager(this.usersModel);
 	}
 
 	getManagers() {
 		return {
-			users: this.usersManager
+			users: this.usersManager,
+			albums: this.albumsManager
 		}
 	}
 }

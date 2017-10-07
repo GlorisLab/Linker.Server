@@ -3,9 +3,11 @@
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 
+const cryptoConfig = require('../config/crypto');
+
 const jwtOptions = {
 	jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-	secretOrKey: 'GoodBoyCowboy'
+	secretOrKey: cryptoConfig.salt
 };
 
 module.exports = (usersManager) => {
