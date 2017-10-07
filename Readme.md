@@ -55,6 +55,7 @@ POST _/album/create_
  
 ```
 Request: {
+    userId
     title
     description
 }
@@ -103,4 +104,45 @@ Request: {
 }
 
 Response: album
+```
+
+## Links (secured)
+
+Security means the presence of a special field in the request headers
+
+```
+HEADER
+Authorization: token
+```
+
+### create
+POST _/link/create_
+ 
+```
+Request: {
+    albumId
+    url
+}
+
+Response: link
+```
+ 
+ 
+### findById 
+GET _/link/findById/:id_
+
+```
+Response: link
+```
+
+### findByAlbum
+GET _/link/findByAlbum/:albumId_
+
+```
+Get Queries: {
+    limit: int in range 0..n
+    offset: int
+}
+
+Response: [link]
 ```

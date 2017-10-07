@@ -16,7 +16,7 @@ class AlbumsManager {
 	findByUser(userId, offset = 0, limit = 20) {
 		return this.albumModel
 			.find({ userId })
-			.sort( { createdAt: -1 } )
+			.sort( { updatedAt: -1 } )
 			.skip(parseInt(offset))
 			.limit(parseInt(limit))
 			.exec();

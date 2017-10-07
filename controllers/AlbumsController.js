@@ -29,7 +29,7 @@ class AlbumsController extends BaseController {
 			const {id} = ctx.params;
 			this.success(ctx, await this.albumManager.findById(id));
 		} catch (error) {
-			this.error(ctx, 404, 'Not found');
+			this.error(ctx, 404, 'Album not found');
 		}
 	}
 
@@ -39,7 +39,7 @@ class AlbumsController extends BaseController {
 			const {limit, offset} = ctx.query;
 			this.success(ctx, await this.albumManager.findByUser(userId, offset, limit));
 		} catch (error) {
-			this.error(ctx, 404, 'Not found');
+			this.error(ctx, 404, 'Album not found');
 		}
 	}
 
@@ -48,7 +48,7 @@ class AlbumsController extends BaseController {
 			const {id, type} = ctx.params;
 			this.success(ctx, await this.albumManager.changeType(id, type));
 		} catch (error) {
-			this.error(ctx, 404, 'Not found');
+			this.error(ctx, 404, 'Album not found');
 		}
 	}
 
@@ -58,7 +58,7 @@ class AlbumsController extends BaseController {
 			const {title, description} = ctx.request.body;
 			this.success(ctx, await this.albumManager.edit(id, title, description));
 		} catch (error) {
-			this.error(ctx, 404, 'Not found');
+			this.error(ctx, 404, 'Album not found');
 		}
 	}
 }
