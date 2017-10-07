@@ -2,19 +2,19 @@
 
 class UsersManager {
 	constructor(userModel) {
-		this.albumModel = userModel;
+		this.userModel = userModel;
 	}
 
 	create(displayName, email, password) {
-		return this.albumModel.create({ displayName, email, password });
+		return this.userModel.create({ displayName, email, password });
 	}
 
 	findById(id) {
-		return this.albumModel.findOne({ _id: id }).exec();
+		return this.userModel.findOne({ _id: id }).exec();
 	}
 
 	findByEmail(email) {
-		return this.albumModel.findOne({ email }).exec();
+		return this.userModel.findOne({ email }).exec();
 	}
 }
 
