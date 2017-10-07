@@ -56,6 +56,8 @@ class Router {
 		this.router.post(paths.create, this.authValidator, controller.create);
 		this.router.get(paths.findById, this.authValidator, controller.findById);
 		this.router.get(paths.findByUser, this.authValidator, controller.findByUser);
+		this.router.get(paths.changeType, this.authValidator, controller.changeType);
+		this.router.post(paths.edit, this.authValidator, controller.edit);
 	}
 }
 

@@ -10,7 +10,7 @@ module.exports = {
 		create: '/album/create',
 		findById: '/album/findById/:id',
 		findByUser: '/album/findByUser/:userId',
-		changeType: 'album/changeType/:id/:type',
+		changeType: '/album/changeType/:id/:type',
 		edit: '/album/edit/:id'
 	}
 };

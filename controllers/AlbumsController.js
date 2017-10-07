@@ -44,11 +44,22 @@ class AlbumsController extends BaseController {
 	}
 
 	async changeType(ctx, next) {
-
+		try {
+			const {id, type} = ctx.params;
+			this.success(ctx, await this.albumManager.changeType(id, type));
+		} catch (error) {
+			this.error(ctx, 404, 'Not found');
+		}
 	}
 
 	async edit(ctx, next) {
-
+		try {
+			const {id} = ctx.params;
+			const {title, description} = ctx.request.body;
+			this.success(ctx, await this.albumManager.edit(id, title, description));
+		} catch (error) {
+			this.error(ctx, 404, 'Not found');
+		}
 	}
 }
 

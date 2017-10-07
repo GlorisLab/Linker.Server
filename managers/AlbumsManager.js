@@ -21,6 +21,18 @@ class AlbumsManager {
 			.limit(parseInt(limit))
 			.exec();
 	}
+
+	changeType(id, type) {
+		return this.albumModel
+			.findOneAndUpdate({ _id: id }, { type }, { new: true })
+			.exec();
+	}
+
+	edit(id, title, description) {
+		return this.albumModel
+			.findOneAndUpdate({ _id: id }, { title, description }, { new: true })
+			.exec();
+	}
 }
 
 module.exports = AlbumsManager;
