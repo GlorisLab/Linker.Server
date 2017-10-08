@@ -10,3 +10,4 @@ const server = new Server()
 						.attachRouter(routesConfig)
 						.enableLogs()
 						.serve(3001);
+

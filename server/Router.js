@@ -2,7 +2,9 @@
 
 const KoaRouter = require('koa-router');
 
+const AlbumsController = require('../controllers/AlbumsController');
 const UsersController = require('../controllers/UsersController');
+const LinksController = require('../controllers/LinksController');
 
 const logger = require('koa-logger');
 const passport = require('koa-passport');
@@ -23,11 +25,17 @@ class Router {
 	}
 
 	route() {
+		const albumsController = new AlbumsController(this.managers.albums);
 		const usersController = new UsersController(passport, this.managers.users);
+		const linksController = new LinksController(this.managers.links);
+
+		this.authValidator = usersController.validate;
 
 		this.registerMiddlewares();
 		this.registerStrategies();
 		this.registerUserRoutes(this.routes.user, usersController);
+		this.registerAlbumRoutes(this.routes.album, albumsController);
+		this.registerLinkRoutes(this.routes.link, linksController);
 	}
 
 	registerMiddlewares() {
@@ -44,7 +52,21 @@ class Router {
 	registerUserRoutes(paths, controller) {
 		this.router.post(paths.reg, controller.register);
 		this.router.post(paths.auth, controller.auth);
-		this.router.get(paths.validate, controller.validate);
+		this.router.get(paths.validate, this.authValidator, controller.printer);
+	}
+
+	registerAlbumRoutes(paths, controller) {
+		this.router.post(paths.create, this.authValidator, controller.create);
+		this.router.get(paths.findById, this.authValidator, controller.findById);
+		this.router.get(paths.findByUser, this.authValidator, controller.findByUser);
+		this.router.get(paths.changeType, this.authValidator, controller.changeType);
+		this.router.post(paths.edit, this.authValidator, controller.edit);
+	}
+
+	registerLinkRoutes(paths, controller) {
+		this.router.post(paths.create, this.authValidator, controller.create);
+		this.router.get(paths.findById, this.authValidator, controller.findById);
+		this.router.get(paths.findByAlbum, this.authValidator, controller.findByAlbum);
 	}
 }
 

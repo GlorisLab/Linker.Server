@@ -5,5 +5,17 @@ module.exports = {
 		reg: '/user/reg',
 		auth: '/user/auth',
 		validate: '/user/validate'
+	},
+	album: {
+		create: '/album/create',
+		findById: '/album/findById/:id',
+		findByUser: '/album/findByUser/:userId',
+		changeType: '/album/changeType/:id/:type',
+		edit: '/album/edit/:id'
+	},
+	link: {
+		create: '/link/create',
+		findById: '/link/findById/:id',
+		findByAlbum: '/link/findByAlbum/:albumId'
 	}
 };

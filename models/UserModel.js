@@ -38,5 +38,5 @@ module.exports = (mongoose) => {
 		return crypto.pbkdf2Sync(password, this.salt, 1, 128, 'sha1') == this.passwordHash;
 	};
 
-	return mongoose.model('User', userSchema);
+	return mongoose.model('Users', userSchema);
 };
