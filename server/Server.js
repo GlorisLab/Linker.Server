@@ -1,17 +1,19 @@
 'use strict'
 
 const Koa = require('koa');
+const cors = require('@koa/cors');
+
 const Router = require('./Router');
 const Database = require('./Database');
 
 class Server {
 	constructor() {
 		this.app = new Koa();
+		this.app.use(cors());
 	}
 
 	attachRouter(routes) {
-		this.router = new Router(this.app, routes,
-			this.database.getManagers());
+		this.router = new Router(this.app, routes, this.database.getManagers());
 		this.router.route();
 		return this;
 	}
