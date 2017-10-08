@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/GlorisLab/Linker.Server#readme",
   "dependencies": {
+    "@koa/cors": "^2.2.1",
     "crypto": "^1.0.1",
     "image-resolver": "^0.5.4",
     "jsonwebtoken": "^8.0.1",
