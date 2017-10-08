@@ -9,4 +9,4 @@ const server = new Server()
 						.attachDatabase(databaseConfig)
 						.attachRouter(routesConfig)
 						.enableLogs()
-						.serve(3000);
+						.serve(3001);
