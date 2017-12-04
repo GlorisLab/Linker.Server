@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 class LinksManager {
 	constructor(linkModel) {
@@ -19,6 +19,19 @@ class LinksManager {
 			.sort( { createdAt: -1 } )
 			.skip(parseInt(offset))
 			.limit(parseInt(limit))
+			.exec();
+	}
+
+	getCoverByAlbumId(albumId) {
+		return this.linkModel
+			.findOne({ albumId, cover: { $ne: null } })
+			.exec()
+			.then(link => !link ? null : link.cover);
+	}
+
+	remove(linkId) {
+		return this.linkModel
+			.findOneAndRemove({ albumId })
 			.exec();
 	}
 }

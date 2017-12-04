@@ -11,11 +11,13 @@ module.exports = {
 		findById: '/album/findById/:id',
 		findByUser: '/album/findByUser/:userId',
 		changeType: '/album/changeType/:id/:type',
-		edit: '/album/edit/:id'
+		edit: '/album/edit/:id',
+		remove: '/album/remove/:id'
 	},
 	link: {
 		create: '/link/create',
 		findById: '/link/findById/:id',
-		findByAlbum: '/link/findByAlbum/:albumId'
+		findByAlbum: '/link/findByAlbum/:albumId',
+		remove: '/link/remove/:id'
 	}
 };

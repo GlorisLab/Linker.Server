@@ -33,6 +33,12 @@ class AlbumsManager {
 			.findOneAndUpdate({ _id: id }, { title, description }, { new: true })
 			.exec();
 	}
+
+	remove(id) {
+		return this.albumModel
+			.findOneAndRemove({ _id: id })
+			.exec();
+	}
 }
 
 module.exports = AlbumsManager;

@@ -20,7 +20,12 @@ class UsersController extends BaseController {
 	async register(ctx, next) {
 			try {
 				const { displayName, email, password } = ctx.request.body;
-				this.success(ctx, await this.usersManager.create(displayName, email, password));
+				const user = await this.usersManager.create(displayName, email, password);
+				this.success(ctx, {
+					id: user.id,
+					displayName: user.displayName,
+					email: user.email
+				});
 			}
 			catch (err) {
 				this.error(ctx, 500, err);
@@ -41,7 +46,7 @@ class UsersController extends BaseController {
 			};
 
 			const token = cryptoConfig.formToken(jwt.sign(payload, cryptoConfig.salt));
-			ctx.body = {user: user.displayName, token };
+			ctx.body = {id: user.id, email: user.email, displayName: user.displayName, token};
 		})(ctx, next);
 	}
 
@@ -58,7 +63,12 @@ class UsersController extends BaseController {
 	}
 
 	async printer(ctx, next) {
-		ctx.body = ctx.user;
+		const {user} = ctx;
+		ctx.body = {
+			id: user.id,
+			email: user.email,
+			displayName: user.displayName,
+		};
 	}
 }
 
