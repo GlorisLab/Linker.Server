@@ -71,6 +71,9 @@ Request: {
 
 Response: album
 ```
+
+### search
+GET /album/search/:query
  
  
 ### findById 

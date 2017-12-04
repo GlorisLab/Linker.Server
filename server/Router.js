@@ -62,6 +62,7 @@ class Router {
 		this.router.get(paths.changeType, this.authValidator, controller.changeType);
 		this.router.post(paths.edit, this.authValidator, controller.edit);
 		this.router.get(paths.remove, this.authValidator, controller.remove);
+		this.router.get(paths.searchByTitle, this.authValidator, controller.searchByTitle);
 	}
 
 	registerLinkRoutes(paths, controller) {

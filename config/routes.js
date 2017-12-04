@@ -12,7 +12,8 @@ module.exports = {
 		findByUser: '/album/findByUser/:userId',
 		changeType: '/album/changeType/:id/:type',
 		edit: '/album/edit/:id',
-		remove: '/album/remove/:id'
+		remove: '/album/remove/:id',
+		searchByTitle: '/album/search/:query'
 	},
 	link: {
 		create: '/link/create',
