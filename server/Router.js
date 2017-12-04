@@ -25,7 +25,7 @@ class Router {
 	}
 
 	route() {
-		const albumsController = new AlbumsController(this.managers.albums);
+		const albumsController = new AlbumsController(this.managers.albums, this.managers.links);
 		const usersController = new UsersController(passport, this.managers.users);
 		const linksController = new LinksController(this.managers.links);
 
@@ -61,12 +61,15 @@ class Router {
 		this.router.get(paths.findByUser, this.authValidator, controller.findByUser);
 		this.router.get(paths.changeType, this.authValidator, controller.changeType);
 		this.router.post(paths.edit, this.authValidator, controller.edit);
+		this.router.get(paths.remove, this.authValidator, controller.remove);
+		this.router.get(paths.searchByTitle, this.authValidator, controller.searchByTitle);
 	}
 
 	registerLinkRoutes(paths, controller) {
 		this.router.post(paths.create, this.authValidator, controller.create);
 		this.router.get(paths.findById, this.authValidator, controller.findById);
 		this.router.get(paths.findByAlbum, this.authValidator, controller.findByAlbum);
+		this.router.get(paths.remove, this.authValidator, controller.remove);
 	}
 }
 

@@ -11,7 +11,11 @@ Request: {
     password (required) 
 }
 
-Response: the user
+Response: {
+     id,
+     email,
+     displayName
+}
 ```
  
  
@@ -25,7 +29,10 @@ Request: {
 }
 
 Response: {
-    token
+     id,
+     email,
+     displayName,
+     token
     }
 ```
 
@@ -37,7 +44,9 @@ HEADER
 Authorization: token
 
 Response: {
-    user
+     id,
+     email,
+     displayName
     }
 ```
 
@@ -55,13 +64,16 @@ POST _/album/create_
  
 ```
 Request: {
-    userId
+    user
     title
     description
 }
 
 Response: album
 ```
+
+### search
+GET /album/search/:query
  
  
 ### findById 
@@ -80,7 +92,10 @@ Get Queries: {
     offset: int
 }
 
-Response: [album]
+Response: {
+    count,
+    albums: [album]
+    }
 ```
 
 
@@ -104,6 +119,20 @@ Request: {
 }
 
 Response: album
+```
+
+### remove
+POST _/album/remove/:id_
+
+```
+Request: {
+    title
+    description
+}
+
+Response: {
+    success
+    }
 ```
 
 ## Links (secured)
@@ -144,5 +173,17 @@ Get Queries: {
     offset: int
 }
 
-Response: [link]
+Response: {
+    count,
+    links: [link]
+    }
+```
+
+### remove 
+GET _/link/findById/:id_
+
+```
+Response: {
+    success
+    }
 ```
