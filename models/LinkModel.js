@@ -14,6 +14,12 @@ module.exports = (mongoose) => {
 		},
 		cover: {
 			type: String
+		},
+		title: {
+			type: String
+		},
+		favicon: {
+			type: String
 		}
 	}, {
 		timestamps: true
