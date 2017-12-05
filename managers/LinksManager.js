@@ -5,8 +5,8 @@ class LinksManager {
 		this.linkModel = linkModel;
 	}
 
-	create(albumId, url, cover) {
-		return this.linkModel.create({ albumId, url, cover });
+	create(albumId, url, cover, title, favicon) {
+		return this.linkModel.create({ albumId, url, cover, title, favicon });
 	}
 
 	findById(id) {

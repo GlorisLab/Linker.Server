@@ -12,7 +12,6 @@ class AlbumsController extends BaseController {
 		this.create = this.create.bind(this);
 		this.findById = this.findById.bind(this);
 		this.findByUser = this.findByUser.bind(this);
-		this.searchByTitle = this.searchByTitle.bind(this);
 		this.changeType = this.changeType.bind(this);
 		this.edit = this.edit.bind(this);
 		this.remove = this.remove.bind(this);
@@ -44,27 +43,13 @@ class AlbumsController extends BaseController {
 
 	async findByUser(ctx, next) {
 		try {
-			const {userId} = ctx.params;
-			const {limit, offset} = ctx.query;
-			const albums = await this.albumManager.findByUser(userId, offset, limit);
+			const {query = '', limit, offset} = ctx.query;
+			console.log(query);
+			const albums = await this.albumManager.findByUser(ctx.user.id, query, offset, limit);
 
-			this.success(ctx, { count: albums.length || 0,
-				albums: await this.mapArrayResponse(albums) });
+			this.success(ctx, await this.mapArrayResponse(albums));
 		} catch (error) {
 			this.error(ctx, 404, 'Album not found');
-		}
-	}
-
-	async searchByTitle(ctx, next) {
-		try {
-			const {query} = ctx.params;
-			const {limit, offset} = ctx.query;
-			const albums = await this.albumManager.findByQuery(query, ctx.user.id, offset, limit);
-
-			this.success(ctx, { count: albums.length || 0,
-				albums: await this.mapArrayResponse(albums) });
-		} catch (error) {
-			this.error(ctx, 500, error);
 		}
 	}
 

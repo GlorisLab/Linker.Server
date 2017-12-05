@@ -2,6 +2,7 @@
 
 const BaseController = require('./BaseController');
 const ImageProvider = require('../providers/ImageProvider');
+const MetaProvider = require('../providers/MetaProvider');
 
 class LinksController extends BaseController {
 	constructor(linksManager) {
@@ -9,6 +10,7 @@ class LinksController extends BaseController {
 
 		this.linksManager = linksManager;
 		this.imageProvider = new ImageProvider();
+		this.metaProvider = new MetaProvider();
 
 		this.create = this.create.bind(this);
 		this.findById = this.findById.bind(this);
@@ -22,7 +24,9 @@ class LinksController extends BaseController {
 		try {
 			const {albumId, url} = ctx.request.body;
 			const cover = await this.imageProvider.provide(url);
-			const link = await this.linksManager.create(albumId, url, cover);
+			const meta = await this.metaProvider.provide(url);
+			const link = await this.linksManager.create(albumId, url, cover, meta.title, meta.favicon);
+
 			this.success(ctx, this.mapResponse(link));
 		} catch (error) {
 			this.error(ctx, 500, error);
@@ -45,10 +49,7 @@ class LinksController extends BaseController {
 			const {albumId} = ctx.params;
 			const {limit, offset} = ctx.query;
 			const links = await this.linksManager.findByAlbum(albumId, offset, limit);
-			this.success(ctx, {
-				count: links.length || 0,
-				links: await this.mapArrayResponse(links)
-			});
+			this.success(ctx, await this.mapArrayResponse(links));
 		} catch (error) {
 			this.error(ctx, 404, 'Link not found');
 		}
@@ -74,7 +75,9 @@ class LinksController extends BaseController {
 			id: link.id,
 			album: link.albumId,
 			url: link.url,
-			cover: link.cover
+			cover: link.cover,
+			title: link.title,
+			favicon: link.favicon
 		}
 	}
 }

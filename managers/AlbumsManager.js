@@ -22,9 +22,9 @@ class AlbumsManager {
 		return this.albumModel.findOne({ _id: id }).exec();
 	}
 
-	findByUser(userId, offset = 0, limit = 20) {
+	findByUser(userId, query, offset = 0, limit = 20) {
 		return this.albumModel
-			.find({ userId })
+			.find({ userId, title: { $regex: query, $options: "i" } })
 			.sort( { updatedAt: -1 } )
 			.skip(parseInt(offset))
 			.limit(parseInt(limit))

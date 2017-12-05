@@ -15,7 +15,7 @@ class ImageProvider {
 		return new Promise((resolve, reject) => {
 			this.resolver.resolve(url, result => {
 				if (!result) {
-					return reject("No image found");
+					return resolve(null);
 				}
 				resolve(result.image);
 			});
