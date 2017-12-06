@@ -29,8 +29,10 @@ class LinksManager {
 			.findOne(data)
 			.exec()
 			.then(album => {
-				if (album.userId !== userId &&
+				if (album.userId != userId &&
 					album.type !== 'public') throw 'Not found';
+
+				console.log('here', album, userId, albumId);
 
 				return this.linkModel
 					.find({ albumId })
