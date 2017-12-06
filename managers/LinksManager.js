@@ -50,9 +50,9 @@ class LinksManager {
 			.then(link => !link ? null : link.cover);
 	}
 
-	remove(linkId) {
+	remove(id) {
 		return this.linkModel
-			.findOneAndRemove({ albumId })
+			.findOneAndRemove({ _id: id })
 			.exec();
 	}
 }
