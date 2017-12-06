@@ -30,7 +30,7 @@ class Database {
 		this.albumsManager = new AlbumManager(this.albumsModel);
 
 		this.linksModel = LinkModel(mongoose);
-		this.linksManager = new LinksManager(this.linksModel);
+		this.linksManager = new LinksManager(this.linksModel, this.albumsModel);
 	}
 
 	getManagers() {

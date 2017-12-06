@@ -48,7 +48,8 @@ class LinksController extends BaseController {
 		try {
 			const {albumId} = ctx.params;
 			const {limit, offset} = ctx.query;
-			const links = await this.linksManager.findByAlbum(albumId, offset, limit);
+			const userId = ctx.user == null ? null : ctx.user.id;
+			const links = await this.linksManager.findByAlbum(userId, albumId, offset, limit);
 			this.success(ctx, await this.mapArrayResponse(links));
 		} catch (error) {
 			this.error(ctx, 404, 'Link not found');

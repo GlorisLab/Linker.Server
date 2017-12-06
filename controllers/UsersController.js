@@ -15,6 +15,7 @@ class UsersController extends BaseController {
 		this.auth = this.auth.bind(this);
 		this.validate = this.validate.bind(this);
 		this.register = this.register.bind(this);
+		this.obtainUserIfProvided = this.obtainUserIfProvided.bind(this);
 	}
 
 	async register(ctx, next) {
@@ -57,6 +58,13 @@ class UsersController extends BaseController {
 				return;
 			}
 
+			ctx.user = user;
+			return next();
+		})(ctx, next);
+	}
+
+	async obtainUserIfProvided(ctx, next) {
+		await this.passport.authenticate('jwt', (err, user) => {
 			ctx.user = user;
 			return next();
 		})(ctx, next);

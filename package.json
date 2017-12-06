@@ -27,7 +27,7 @@
     "koa-logger": "^3.1.0",
     "koa-passport": "^4.0.0",
     "koa-router": "^7.2.1",
-    "mongoose": "^4.11.14",
+    "mongoose": "4.11.14",
     "passport-jwt": "^3.0.0",
     "passport-local": "^1.0.0",
     "superagent": "^3.8.1"

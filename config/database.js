@@ -1,5 +1,5 @@
 'use strict'
 
 module.exports = {
-	uri: 'mongodb://test:qwerty@ds157614.mlab.com:57614/linker'
+	uri: 'mongodb://admin:query@ds033186.mlab.com:33186/linker'
 }

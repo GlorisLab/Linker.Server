@@ -30,6 +30,7 @@ class Router {
 		const linksController = new LinksController(this.managers.links);
 
 		this.authValidator = usersController.validate;
+		this.obtainUserIfProvided = usersController.obtainUserIfProvided;
 
 		this.registerMiddlewares();
 		this.registerStrategies();
@@ -67,7 +68,7 @@ class Router {
 	registerLinkRoutes(paths, controller) {
 		this.router.post(paths.create, this.authValidator, controller.create);
 		this.router.get(paths.findById, this.authValidator, controller.findById);
-		this.router.get(paths.findByAlbum, this.authValidator, controller.findByAlbum);
+		this.router.get(paths.findByAlbum, this.obtainUserIfProvided, controller.findByAlbum);
 		this.router.get(paths.remove, this.authValidator, controller.remove);
 	}
 }

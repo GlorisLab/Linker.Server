@@ -21,8 +21,8 @@ class AlbumsController extends BaseController {
 
 	async create(ctx, next) {
 		try {
-			const {userId, title, type, description} = ctx.request.body;
-			const album = await this.albumManager.create(userId, title, type, description);
+			const {title, type, description} = ctx.request.body;
+			const album = await this.albumManager.create(ctx.user.id, title, type, description);
 
 			this.success(ctx, this.mapResponse(album, null));
 		} catch (error) {
